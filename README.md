@@ -28,7 +28,35 @@ To formulate a C program to convert a decimal number into its binary equivalent 
 ### Step 8: 
    Stop
 # Program:
+#include <stdio.h>
+
+int main()
+{
+    int decimal, binary[32], i = 0, j;
+    scanf("%d", &decimal);
+
+    if (decimal == 0) {
+        printf("Binary: 0\n");
+        return 0;
+    }
+    int num = decimal;
+    while (num > 0)
+    {
+        binary[i] = num % 2;
+        num = num / 2;
+        i++;
+    }
+    printf("Binary equivalent of %d is: ", decimal);
+    for (j = i - 1; j >= 0; j--)
+    {
+        printf("%d", binary[j]);
+    }
+    printf("\n");
+
+    return 0;
+}
 # Output:
+Binary equivalent of 25 is: 11001
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -67,7 +95,58 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9: 
   Stop
 # Program:
+#include <stdio.h>
+
+int main()
+{
+    int m, n, i, j, k;
+    int found = 0;
+    scanf("%d %d", &m, &n);
+
+    int matrix[m][n];
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    for (i = 0; i < m; i++)
+    {
+        int rowMin = matrix[i][0];
+        int colIndex = 0;
+        for (j = 1; j < n; j++)
+        {
+            if (matrix[i][j] < rowMin)
+            {
+                rowMin = matrix[i][j];
+                colIndex = j;
+            }
+        }
+        int isSaddle = 1;
+        for (k = 0; k < m; k++)
+        {
+            if (matrix[k][colIndex] > rowMin)
+            {
+                isSaddle = 0;
+                break;
+            }
+        }
+
+        if (isSaddle)
+        {
+            printf("Saddle point found at row %d, column %d: %d\n", i+1, colIndex+1, rowMin);
+            found = 1;
+        }
+    }
+
+    if (!found)
+        printf("No saddle point found in the matrix.\n");
+
+    return 0;
+}
 # Output:
+No saddle point found in the matrix.
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -101,7 +180,32 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10: 
   Stop
 # Program:
+#include <string.h>
+
+int main()
+{
+    char str[100], rev[100];
+    int i, len, j;
+    fgets(str, sizeof(str), stdin);
+    len = strlen(str);
+    if (str[len - 1] == '\n')
+    {
+        str[len - 1] = '\0';
+        len--;
+    }
+    j = 0;
+    for (i = len - 1; i >= 0; i--)
+    {
+        rev[j++] = str[i];
+    }
+    rev[j] = '\0'; 
+
+    printf("Reversed string: %s\n", rev);
+
+    return 0;
+}
 # Output:
+Reversed string: dlroW olleH
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -135,7 +239,35 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8:
   Stop
 # Program:
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char str[100];
+    int freq[256] = {0};  
+    int i;
+    fgets(str, sizeof(str), stdin);
+    int len = strlen(str);
+    if (str[len - 1] == '\n')
+        str[len - 1] = '\0';
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        freq[(unsigned char)str[i]]++;
+    }
+    printf("\nCharacter Frequency:\n");
+    for (i = 0; i < 256; i++)
+    {
+        if (freq[i] > 0)
+        {
+            printf("'%c' : %d\n", i, freq[i]);
+        }
+    }
+
+    return 0;
+}
 # Output:
+Character Frequency: 'H' : 1 'e' : 1 'l' : 2 'o' : 1
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -169,7 +301,53 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8: 
   Stop
 # Program:
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main()
+{
+    char str[200];
+    char words[50][50];   
+    int count[50] = {0};  
+    int wordCount = 0;
+    fgets(str, sizeof(str), stdin);
+    int len = strlen(str);
+    if (str[len - 1] == '\n')
+        str[len - 1] = '\0';
+    char *token = strtok(str, " ");
+    while (token != NULL)
+    {
+        int i, found = 0;
+        for (i = 0; i < wordCount; i++)
+        {
+            if (strcmp(words[i], token) == 0)
+            {
+                found = 1;
+                break;
+            }
+        }
+        if (!found)
+        {
+            strcpy(words[wordCount], token);
+            wordCount++;
+        }
+
+        token = strtok(NULL, " ");
+    }
+    printf("String with unique words: ");
+    for (int i = 0; i < wordCount; i++)
+    {
+        printf("%s", words[i]);
+        if (i != wordCount - 1)
+            printf(" ");
+    }
+    printf("\n");
+
+    return 0;
+}
 # Output:
+String with unique words: this is a test string
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
